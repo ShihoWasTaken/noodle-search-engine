@@ -1,24 +1,3 @@
-h1
-{
-	font-family: 'Product Sans', Arial, sans-serif;
-	font-size: 72px;
-}
-.blue-letter
-{
-	color: #3369E8;
-}
-span.red-letter
-{
-	color: #D50F25;
-}
-span.yellow-letter
-{
-	color: #EEB211;
-}
-span.green-letter
-{
-	color: #009925;
-}
 .vcenter
 {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
@@ -27,11 +6,19 @@ span.green-letter
   display: flex;
   align-items: center;
 }
+
 .noflex
 {
 	display: inline-block;
 }	
+
 .form-control, .input-group-btn input, .input-group-btn button
 {
 	height: 50px;
+	font-size: 22px;
+}
+
+.logo
+{
+	font-size: 92px;
 }
