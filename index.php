@@ -33,7 +33,7 @@
 						</h1>
 		                <form role="form" method="get" action="search.php">
 		                    <div class="input-group">
-		                        <input id="searchbar" name="query" type="text" class="form-control" placeholder="Entrez votre recherche">
+		                        <input id="searchbar" name="query" type="text" class="form-control" placeholder="Entrez votre recherche" autofocus>
 		                        <span class="input-group-btn">
 		                            <input class="btn btn-primary" type="submit" value="chercher">
 		                        </span>
