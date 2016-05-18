@@ -9,6 +9,7 @@
 
 import xml.etree.ElementTree
 import os
+import sys
 
 #########################################################################################
 #																						#
@@ -36,4 +37,9 @@ import os
 
 # Pour chaque fichier du dossier data on effectuera les traitements qui suivent
 for fichier in os.listdir('data/'):
-	print fichier
+	root = xml.etree.ElementTree.parse('data/' + fichier).getroot()
+	for childs in root:
+		for child in childs:
+			if (child.tag.upper() == "TEXT"):
+				print child.text
+				sys.exit(0)
