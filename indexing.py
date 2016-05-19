@@ -40,6 +40,19 @@ def indexingStopwords():
 	fichier.close()
 	return stopwords
 
+def getStemOrderedDict():
+	stem = collections.OrderedDict()
+	with open('txt/stem.txt', 'r') as stemFile:
+		for line in stemFile:
+			words = line.split(' | ')
+			value = words[0]
+			keys = words[1].strip().split(' ')
+			for key in keys:
+				stem[key] = value
+	# Affichage de la table de hash
+	#for key, value in stem.items():
+	#	print "stem[" + key +"] = " + value 
+	return stem
 
 #########################################################################################
 #																						#
