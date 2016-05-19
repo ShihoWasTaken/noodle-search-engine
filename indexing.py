@@ -33,6 +33,14 @@ docNoList = collections.OrderedDict()	# La map qui va contenir la liste des docn
 #																						#
 #########################################################################################
 
+def indexingStopwords():
+	fichier = open('stopwords.txt', 'r')
+	stopwords = [word.strip('\n\r') for word in fichier.readlines()]
+	# print stopwords
+	fichier.close()
+	return stopwords
+
+
 #########################################################################################
 #																						#
 #									  	   Main			 								#
