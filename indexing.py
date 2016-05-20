@@ -67,6 +67,7 @@ def stemmer(word):
 
 if __name__ == '__main__':
 	stem = getStemOrderedDict()
+	stopwords = getStopwords()
 	parser = etree.XMLParser(recover=True)
 	# Pour chaque fichier du dossier data on effectuera les traitements qui suivent
 	for fichier in os.listdir('data/'):
@@ -83,10 +84,11 @@ if __name__ == '__main__':
 						words = re.split(' |\n|\t', child.text)
 						for word in words:
 							word = word.strip(".,")
-							if(docNoList.get(stemmer(word), None) is None):		# On teste si la clé du dictionnaire est vide
-								print "On crée la clé " + stemmer(word) + " avec le num " + docno
-								docNoList[stemmer(word)] = [docno]					# On crée une liste contenant le docno actuel
-							else:										# Si elle n'est pas vide
-								print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
-								docNoList[stemmer(word)].append(docno)			# On ajoute le docno à la liste
+							if word not in stopwords:
+								if(docNoList.get(stemmer(word), None) is None):		# On teste si la clé du dictionnaire est vide
+									print "On crée la clé " + stemmer(word) + " avec le num " + docno
+									docNoList[stemmer(word)] = [docno]					# On crée une liste contenant le docno actuel
+								else:										# Si elle n'est pas vide
+									print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
+									docNoList[stemmer(word)].append(docno)			# On ajoute le docno à la liste
 			#sys.exit(0) # On termine après le premier fichier
