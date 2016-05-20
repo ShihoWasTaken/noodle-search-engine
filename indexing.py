@@ -87,9 +87,14 @@ if __name__ == '__main__':
 							word = word.lower()
 							if word not in stopwords:
 								if(docNoList.get(stemmer(word), None) is None):		# On teste si la clé du dictionnaire est vide
-									print "On crée la clé " + stemmer(word) + " avec le num " + docno
+									#print "On crée la clé " + stemmer(word) + " avec le num " + docno
 									docNoList[stemmer(word)] = [docno]					# On crée une liste contenant le docno actuel
 								else:										# Si elle n'est pas vide
-									print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
+									#print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
 									docNoList[stemmer(word)].append(docno)			# On ajoute le docno à la liste
+	indexedFile = open("indexedStem.txt","w")
+	for stem, listDoc in docNoList.iteritems():
+		indexedFile.write(stem + " | " + " ".join(listDoc) + "\n")
+	indexedFile.close()
+	print "nombre stems = " + str(len(docNoList))
 			#sys.exit(0) # On termine après le premier fichier
