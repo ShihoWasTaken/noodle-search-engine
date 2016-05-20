@@ -41,7 +41,7 @@ if __name__ == '__main__':
 	result = list() #	liste des documents contenant au moins un mot de la requête utilisateur
 	for word in sys.argv[1].split(' '):
 		if word not in indexing.getStopwords():
-			alteredWord = indexing.stemmer(word)
+			alteredWord = indexing.stemmer(word.lower())
 			values = indexing.getStemOrderedDict().get(alteredWord, None)
 			if values != None:
 				result.append(values)
