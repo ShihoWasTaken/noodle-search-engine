@@ -83,7 +83,8 @@ if __name__ == '__main__':
 					if child.text is not None:
 						words = re.split(' |\n|\t', child.text)
 						for word in words:
-							word = word.strip(".,")
+							word = word.strip(".,_`'")
+							word = word.lower()
 							if word not in stopwords:
 								if(docNoList.get(stemmer(word), None) is None):		# On teste si la clé du dictionnaire est vide
 									print "On crée la clé " + stemmer(word) + " avec le num " + docno
