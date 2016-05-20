@@ -12,6 +12,7 @@ import os
 import sys
 import collections
 import re
+from nltk import PorterStemmer
 
 #########################################################################################
 #																						#
@@ -54,6 +55,9 @@ def getStemOrderedDict():
 	#	print "stem[" + key +"] = " + value 
 	return stem
 
+def stemmer(word):
+	return PorterStemmer().stem_word(word).decode().encode('utf-8')
+
 #########################################################################################
 #																						#
 #									  	   Main			 								#
@@ -74,10 +78,10 @@ if __name__ == '__main__':
 					words = re.split(' |\n', child.text)
 					for word in words:
 						word = word.strip(".,")
-						if(docNoList.get(word, None) is None):		# On teste si la clé du dictionnaire est vide
-							print "On crée la clé " + word + " avec le num " + docno
-							docNoList[stem.get(word, word)] = [docno]					# On crée une liste contenant le docno actuel
+						if(docNoList.get(stemmer(word), None) is None):		# On teste si la clé du dictionnaire est vide
+							print "On crée la clé " + stemmer(word) + " avec le num " + docno
+							docNoList[stemmer(word)] = [docno]					# On crée une liste contenant le docno actuel
 						else:										# Si elle n'est pas vide
-							print "On ajoute le num " + docno + " à docNoList[" + word + "]"
-							docNoList[word].append(docno)			# On ajoute le docno à la liste
+							#print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
+							docNoList[stemmer(word)].append(docno)			# On ajoute le docno à la liste
 		sys.exit(0) # On termine après le premier fichier
