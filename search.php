@@ -6,6 +6,24 @@
 	$results = array();
 	system('./query-manager.py ' . $_GET['query']);
 
+	$handle = fopen("output/documentPerFile.txt", "r");
+	if ($handle) 
+	{
+		$fileOfDocument = array();
+	    while (($line = fgets($handle)) !== false) 
+	    {
+	        // process the line read.
+	        $splitted = explode("|", $line);
+	        $fileOfDocument[trim($splitted[0])] = trim($splitted[1]);
+	    }
+	    fclose($handle);
+	} 
+	else 
+	{
+		echo "Erreur à la lecture du fichier de documents par fichier";
+		exit();
+	}
+
 	$handle = fopen("output/results.txt", "r");
 	if ($handle) 
 	{
@@ -13,7 +31,7 @@
 	    {
 	        // process the line read.
 	        $splitted = explode("|", $line);
-	        $results[] = new Result($splitted[0], $splitted[1], $splitted[2]);
+	        $results[] = new Result(trim($splitted[0]), $fileOfDocument[trim($splitted[0])], trim($splitted[2]));
 	    }
 	    fclose($handle);
 	} 
@@ -21,7 +39,7 @@
 	{
 		echo "Erreur à la lecture du fichier de résultats";
 		exit();
-	} 
+	}
  ?>
 <!DOCTYPE html>
 <html>
@@ -92,8 +110,8 @@
 					{
 						echo "<div class='row result'>";
 							echo "<div class='col-md-12'>";
-								echo "<h3 class='result-title'>" . $result->getTitle() . "</h3>";
-								echo "<div class='result-link'>" . $result->getLink() . "</div>";
+								echo "<a target=\"_blank\" href=\"data/" . $result->getFilename() . "\"><h3 class='result-title'>" . $result->getTitle() . "</h3></a>";
+								echo "<div class='result-link'>" . $result->getFilename() . "</div>";
 								echo "<div class='result-summary'>" . $result->getSummary() . "</div>";
 							echo "</div>";
 						echo "</div>";

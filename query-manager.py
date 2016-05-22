@@ -47,5 +47,6 @@ if __name__ == '__main__':
 			values = stemOrderedDict.get(stemmedWord, None)
 			if values is not None:
 				for document in values:
+					document = document.replace('\n','')
 					resultFile.write(document + ' | adresse document ' + document + ' | résumé document ' + document + '\n')
 	resultFile.close()

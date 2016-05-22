@@ -2,13 +2,14 @@
 	class Result
 	{
 		private $title;
-		private $link;
+		private $filename;
 		private $summary;
 
-		public function __construct($title, $link, $summary)
+
+		public function __construct($title, $filename, $summary)
 		{
 			$this->title = $title;
-			$this->link = $link;
+			$this->filename = $filename;
 			$this->summary = $summary;
 		}
 
@@ -17,13 +18,14 @@
 			return $this->title;
 		}
 
-		public function getLink()
+		public function getFilename()
 		{
-			return $this->link;
+			return $this->filename;
 		}
 
 		public function getSummary()
 		{
 			return $this->summary;
 		}
+
 	}

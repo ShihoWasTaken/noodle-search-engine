@@ -88,6 +88,7 @@ if __name__ == '__main__':
 	stem = getStemOrderedDict()
 	stopwords = getStopwords()
 	parser = etree.XMLParser(recover=True)
+	documentPerFile = open("output/documentPerFile.txt","w")
 	# Pour chaque fichier du dossier data on effectuera les traitements qui suivent
 	for fichier in os.listdir('data/'):
 		print "fichier = " + "data/" + fichier
@@ -98,6 +99,7 @@ if __name__ == '__main__':
 			for child in childs:
 				if (child.tag.upper() == "DOCNO"):
 					docno = child.text
+					documentPerFile.write(docno + " | " + fichier + "\n")
 				elif (child.tag.upper() == "TEXT"):
 					if child.text is not None:
 						words = re.split(' |\n|\t', child.text)
@@ -111,6 +113,7 @@ if __name__ == '__main__':
 								else:										# Si elle n'est pas vide
 									#print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
 									docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
+	documentPerFile.close()
 	indexedFile = open("output/indexedStem.txt","w")
 	for stem, listDoc in docNoList.iteritems():
 		indexedFile.write(stem + " | " + " ".join(listDoc) + "\n")
