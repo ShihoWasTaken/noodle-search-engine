@@ -115,7 +115,9 @@ if __name__ == '__main__':
 									docNoList[stemmedWord] = [docno]					# On crée une liste contenant le docno actuel
 								else:										# Si elle n'est pas vide
 									#print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
-									docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
+									# Si le docno n'est pas dans la case du tableau, on l'ajoute (à revoir pour les pertinences)
+									if(docno not in docNoList[stemmedWord]):
+										docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
 	documentPerFile.close()								
 	documentAbstract.close()
 	indexedFile = open("output/indexedStem.txt","w")
