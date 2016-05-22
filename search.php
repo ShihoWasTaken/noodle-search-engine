@@ -4,10 +4,23 @@
 	require 'Result.php';
 
 	$results = array();
-	for($i = 1; $i <= 242; $i++)
+	//system('./query-manager.py ' . $_GET['query']);
+
+	$handle = fopen("output/results.txt", "r");
+	if ($handle) 
 	{
-		$results[] = new Result('Titre document ' . $i, 'Lien document ' . $i, 'Résumé document ' . $i);
-	}
+	    while (($line = fgets($handle)) !== false) 
+	    {
+	        // process the line read.
+	        $splitted = explode("|", $line);
+	        $results[] = new Result($splitted[0], $splitted[1], $splitted[2]);
+	    }
+
+	    fclose($handle);
+	} else 
+	{
+	    // error opening the file.
+	} 
  ?>
 <!DOCTYPE html>
 <html>
@@ -68,7 +81,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<?php echo "Environ " . count($results) . " résultats (0.2 secondes)"; ?>
+					<?php echo "Environ " . count($results) . " résultats (" . round(( microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]),6) . " secondes)"; ?>
 				</div>
 			</div>
 			<div id="paginated-results"></div>
@@ -96,8 +109,8 @@
 			$( document ).ready(function() {
 			    var retrievePaginatedResult = function(page) {
 			    	var results = "";
-			    	var debut = <?php echo MAX_RESULT_PER_PAGE; ?>*(page-1);
-			    	var fin = <?php echo MAX_RESULT_PER_PAGE; ?>*(page-1)+<?php echo MAX_RESULT_PER_PAGE; ?>;
+			    	var debut = <?php echo MAX_RESULT_PER_PAGE; ?>*(page-1)-1;
+			    	var fin = <?php echo MAX_RESULT_PER_PAGE; ?>*(page-1)+<?php echo MAX_RESULT_PER_PAGE; ?>-1;
 			    	$('#hidden-results').children().each(function(index, element) {
 			    		if( (index > debut) && (index <= fin))
 			    			results += $(this).html();

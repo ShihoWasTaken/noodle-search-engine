@@ -1,0 +1,7 @@
+Titre 1 | Nom document 1 | Résumé document 1
+Titre 2 | Nom document 2 | Résumé document 2
+Titre 3 | Nom document 3 | Résumé document 3
+Titre 4 | Nom document 4 | Résumé document 4
+Titre 5 | Nom document 5 | Résumé document 5
+Titre 6 | Nom document 6 | Résumé document 6
+Titre 7 | Nom document 7 | Résumé document 7
