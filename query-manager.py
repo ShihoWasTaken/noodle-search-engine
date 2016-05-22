@@ -37,11 +37,15 @@ import indexing
 #########################################################################################
 
 if __name__ == '__main__':
-	#	sys.argv[1] = chaîne contenant la requête de l'utilisateur
-	result = list() #	liste des documents contenant au moins un mot de la requête utilisateur
-	for word in sys.argv:
-		if word not in indexing.getStopwords():
-			alteredWord = indexing.stemmer(word.lower())
-			values = indexing.getStemOrderedDict().get(alteredWord, None)
-			if values != None:
-				result.append(values)
+	resultFile = open('output/results.txt','w')
+	# Pour chaque argument sans le ./query-manager.py
+	stemOrderedDict = indexing.getStemOrderedDict()
+	for word in sys.argv[1:]:
+		# On traite le mot seulement s'il n'est pas dans les stopwords
+		if indexing.stemmer(word) not in indexing.getStopwords():
+			stemmedWord = indexing.stemmer(word)
+			values = stemOrderedDict.get(stemmedWord, None)
+			if values is not None:
+				for document in values:
+					resultFile.write(document + ' | adresse document ' + document + ' | résumé document ' + document + '\n')
+	resultFile.close()

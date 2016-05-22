@@ -44,13 +44,12 @@ def getStopwords():
 
 def getStemOrderedDict():
 	stem = collections.OrderedDict()
-	with open('txt/stem.txt', 'r') as stemFile:
+	with open('output/indexedStem.txt', 'r') as stemFile:
 		for line in stemFile:
 			words = line.split(' | ')
-			value = words[0]
-			keys = words[1].strip().split(' ')
-			for key in keys:
-				stem[key] = value
+			key = words[0]
+			values = words[1].split(' ')
+			stem[key] = values
 	# Affichage de la table de hash
 	#for key, value in stem.items():
 	#	print "stem[" + key +"] = " + value 
@@ -112,7 +111,7 @@ if __name__ == '__main__':
 								else:										# Si elle n'est pas vide
 									#print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
 									docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
-	indexedFile = open("indexedStem.txt","w")
+	indexedFile = open("output/indexedStem.txt","w")
 	for stem, listDoc in docNoList.iteritems():
 		indexedFile.write(stem + " | " + " ".join(listDoc) + "\n")
 	indexedFile.close()

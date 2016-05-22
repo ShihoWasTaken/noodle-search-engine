@@ -4,7 +4,7 @@
 	require 'Result.php';
 
 	$results = array();
-	//system('./query-manager.py ' . $_GET['query']);
+	system('./query-manager.py ' . $_GET['query']);
 
 	$handle = fopen("output/results.txt", "r");
 	if ($handle) 
@@ -15,11 +15,12 @@
 	        $splitted = explode("|", $line);
 	        $results[] = new Result($splitted[0], $splitted[1], $splitted[2]);
 	    }
-
 	    fclose($handle);
-	} else 
+	} 
+	else 
 	{
-	    // error opening the file.
+		echo "Erreur à la lecture du fichier de résultats";
+		exit();
 	} 
  ?>
 <!DOCTYPE html>
