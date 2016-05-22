@@ -89,6 +89,7 @@ if __name__ == '__main__':
 	stopwords = getStopwords()
 	parser = etree.XMLParser(recover=True)
 	documentPerFile = open("output/documentPerFile.txt","w")
+	documentAbstract = open("output/documentAbstract.txt","w")
 	# Pour chaque fichier du dossier data on effectuera les traitements qui suivent
 	for fichier in os.listdir('data/'):
 		print "fichier = " + "data/" + fichier
@@ -102,6 +103,8 @@ if __name__ == '__main__':
 					documentPerFile.write(docno + " | " + fichier + "\n")
 				elif (child.tag.upper() == "TEXT"):
 					if child.text is not None:
+						# On ajoute le résume du texte au fichier des résumés
+						documentAbstract.write(docno + " | " + child.text[:50].replace("\n","") + "\n")
 						words = re.split(' |\n|\t', child.text)
 						for word in words:
 							word = trim(word)
@@ -113,7 +116,8 @@ if __name__ == '__main__':
 								else:										# Si elle n'est pas vide
 									#print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
 									docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
-	documentPerFile.close()
+	documentPerFile.close()								
+	documentAbstract.close()
 	indexedFile = open("output/indexedStem.txt","w")
 	for stem, listDoc in docNoList.iteritems():
 		indexedFile.write(stem + " | " + " ".join(listDoc) + "\n")

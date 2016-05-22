@@ -6,6 +6,7 @@
 	$results = array();
 	system('./query-manager.py ' . $_GET['query']);
 
+	// Fichier documents
 	$handle = fopen("output/documentPerFile.txt", "r");
 	if ($handle) 
 	{
@@ -24,6 +25,26 @@
 		exit();
 	}
 
+	// Résumé documents
+	$handle = fopen("output/documentAbstract.txt", "r");
+	if ($handle) 
+	{
+		$abstracts = array();
+	    while (($line = fgets($handle)) !== false) 
+	    {
+	        // process the line read.
+	        $splitted = explode("|", $line);
+	        $abstracts[trim($splitted[0])] = trim($splitted[1]);
+	    }
+	    fclose($handle);
+	} 
+	else 
+	{
+		echo "Erreur à la lecture du fichier de résumés";
+		exit();
+	}
+
+	// Résultats recherche
 	$handle = fopen("output/results.txt", "r");
 	if ($handle) 
 	{
@@ -31,7 +52,7 @@
 	    {
 	        // process the line read.
 	        $splitted = explode("|", $line);
-	        $results[] = new Result(trim($splitted[0]), $fileOfDocument[trim($splitted[0])], trim($splitted[2]));
+	        $results[] = new Result(trim($splitted[0]), $fileOfDocument[trim($splitted[0])], $abstracts[trim($splitted[0])] . '...');
 	    }
 	    fclose($handle);
 	} 
