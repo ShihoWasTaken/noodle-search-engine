@@ -62,8 +62,8 @@
 		</div>
 		<div class="container-fluid form-container">
 			<div class="row">
-				<div class="col-md-8">
-					<form class="form-horizontal" role="form">
+				<div class="col-md-12">
+					<form class="form-horizontal" role="form" method="post" action="search.php">
 						<div class="row">
 							<div class="col-md-2">
 							Trouvez des pages avec…
@@ -153,6 +153,15 @@
 							</div>
 							<div class="col-md-4">
 							Rechercher des termes dans la page entière, dans le titre d'une page, dans une adresse Web ou dans des liens vers la page recherchée
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+							</div>
+							<div class="col-md-6 text-right">
+								<input class="btn btn-primary" type="submit" value="Recherche avancée">
+							</div>
+							<div class="col-md-4">
 							</div>
 						</div>
 					</form>

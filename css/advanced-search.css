@@ -6,7 +6,12 @@
     margin-left: 25px;
 }
 
-.form-container .row div
+form .row *
 {
 	vertical-align: middle;
+}
+
+form .row 
+{
+    margin: 15px 0;
 }
