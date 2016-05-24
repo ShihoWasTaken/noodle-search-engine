@@ -97,7 +97,8 @@
 		echo "Erreur à la lecture du fichier de positions";
 		exit();
 	}
-
+	
+/*
 	// Debug
 	foreach($positions as $keyPos => $valuePos)
 	{
@@ -112,6 +113,7 @@
 	}
 
 	exit();
+	*/
  ?>
 <!DOCTYPE html>
 <html>
