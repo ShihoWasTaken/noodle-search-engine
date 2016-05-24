@@ -60,20 +60,99 @@
 				<hr>
 			</div>
 		</div>
-		<div class="container">
+		<div class="container-fluid form-container">
 			<div class="row">
-				<div class="col-md-12">
-					
-					<div class="container-fluid">
-						<hr>
-					</div>
-					<hr>
-					<hr>
+				<div class="col-md-8">
 					<form class="form-horizontal" role="form">
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="email">Email:</label>
-							<div class="col-sm-10">
-								<input type="email" class="form-control" id="email" placeholder="Enter email">
+						<div class="row">
+							<div class="col-md-2">
+							Trouvez des pages avec…
+							</div>
+							<div class="col-md-6">
+							</div>
+							<div class="col-md-4">
+							Pour effectuer cette opération dans le champ de recherche
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2" for="allWords">Tous les mots suivants :</label>
+							<div class="col-md-6">
+								<input type="email" class="form-control" id="allWords" name="allWords">
+							</div>
+							<div class="col-md-4">
+							Saisissez les mots importants : <code>terrier</code> <code>tricolore</code>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2" for="thisWordExactly">Ce mot ou cette expression exact(e) :</label>
+							<div class="col-md-6">
+								<input type="email" class="form-control" id="thisWordExactly" name="thisWordExactly">
+							</div>
+							<div class="col-md-4">
+							Ajoutez des guillemets autour des mots exacts : <code>"terrier"</code>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2" for="oneOfThisWords">L'un des mots suivants :</label>
+							<div class="col-md-6">
+								<input type="email" class="form-control" id="oneOfThisWords" name="oneOfThisWords">
+							</div>
+							<div class="col-md-4">
+							Saisissez OR entre tous les mots à inclure : <code>"miniature OR standard</code>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2" for="noneOfThisWords">Aucun des mots suivants :</label>
+							<div class="col-md-6">
+								<input type="email" class="form-control" id="noneOfThisWords" name="noneOfThisWords">
+							</div>
+							<div class="col-md-4">
+							Placez un signe - (moins) devant les mots à exclure :  <code>-rongeur, -"Jack Russell"</code>
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2" for="min">Nombres compris entre :</label>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-5">
+										<input type="email" class="form-control" id="min" name="min">
+									</div>
+									<div class="col-md-2 text-center">
+									Et
+									</div>
+									<div class="col-md-5">
+										<input type="email" class="form-control" id="max" name="max">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+							Placez deux points entre les nombres, et ajoutez une unité de mesure : <code>10..35 kilos, 300..500 USD, 2010..2011</code>
+							</div>
+						</div>
+						<div class="row">
+							<hr>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								Affinez ensuite la recherche par…
+							</div>
+							<div class="col-md-6">
+							</div>
+							<div class="col-md-4">							
+							</div>
+						</div>
+						<div class="row">
+							<label class="control-label col-sm-2" for="whereToSearch">Termes apparaissant :</label>
+							<div class="col-md-6">
+								<select class="form-control" id="whereToSearch" name="whereToSearch">
+									<option>N'importe où dans la page</option>
+									<option>Dans le titre de la page</option>
+									<option>Dans le texte de la page</option>
+									<option>Dans l'URL de la page</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+							Rechercher des termes dans la page entière, dans le titre d'une page, dans une adresse Web ou dans des liens vers la page recherchée
 							</div>
 						</div>
 					</form>

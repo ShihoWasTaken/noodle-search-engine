@@ -5,3 +5,8 @@
     margin: 10px 35px;
     margin-left: 25px;
 }
+
+.form-container .row div
+{
+	vertical-align: middle;
+}
