@@ -19,4 +19,4 @@ dist
 *.pyc
 *.pyo
 *.tmp*
-output/
+output
