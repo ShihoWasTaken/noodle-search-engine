@@ -167,6 +167,7 @@
 	                    </div>
 					</form>
 				</div>
+				<a class="btn btn-red" href="">Recherche avancée</a>
 				<!-- /.navbar-collapse -->
 			</div>
 			<!-- /.container-fluid -->
