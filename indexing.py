@@ -28,6 +28,7 @@ from lxml import etree
 #########################################################################################
 
 docNoList = collections.OrderedDict()	# La map qui va contenir la liste des docno avec pour chaque clé un stem
+indexPositionList = collections.OrderedDict()	# La map qui va contenir la liste des index positionnels avec pour chaque clé un stem
 
 #########################################################################################
 #																						#
@@ -106,7 +107,9 @@ if __name__ == '__main__':
 						# On ajoute le résume du texte au fichier des résumés
 						documentAbstract.write(docno + " | " + child.text[:50].replace("\n","") + "\n")
 						words = re.split(' |\n|\t', child.text)
+						wordPosition = 0
 						for word in words:
+							wordPosition += 1
 							word = trim(word)
 							stemmedWord = stemmer(word)
 							if word not in stopwords:
@@ -118,11 +121,22 @@ if __name__ == '__main__':
 									# Si le docno n'est pas dans la case du tableau, on l'ajoute (à revoir pour les pertinences)
 									if(docno not in docNoList[stemmedWord]):
 										docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
+								if(indexPositionList.get(stemmedWord, None) is None):		# On teste si la clé du dictionnaire est vide
+									indexPositionList[stemmedWord] = [docno + ":" + str(wordPosition)]
+								else:
+									indexPositionList[stemmedWord].append(docno + ":" + str(wordPosition))							
 	documentPerFile.close()								
 	documentAbstract.close()
+
 	indexedFile = open("output/indexedStem.txt","w")
 	for stem, listDoc in docNoList.iteritems():
 		indexedFile.write(stem + " | " + " ".join(listDoc) + "\n")
 	indexedFile.close()
+
+	indexPosition = open("output/indexPosition.txt","w")
+	for stem, position in indexPositionList.iteritems():
+		indexPosition.write(stem + " | " + " ".join(position) + "\n")
+	indexPosition.close()
+
 	print "nombre stems = " + str(len(docNoList))
 			#sys.exit(0) # On termine après le premier fichier

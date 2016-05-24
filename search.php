@@ -1,7 +1,9 @@
 <?php 
+	ini_set("memory_limit","2048M");
 	define('MAX_RESULT_PER_PAGE', 6);
 
-	require 'Result.php';
+
+	require 'classes/Result.php';
 
 	$results = array();
 	system('./query-manager.py ' . $_GET['query']);
@@ -61,6 +63,55 @@
 		echo "Erreur à la lecture du fichier de résultats";
 		exit();
 	}
+
+	// Positions mots
+	$handle = fopen("output/indexPosition.txt", "r");
+	if ($handle) 
+	{
+		// $positions[stem][document][position]
+		$positions = array();
+	    while (($line = fgets($handle)) !== false) 
+	    {
+	        // process the line read.
+	        $splittedLine = explode("|", $line);
+	        $splittedReferences = explode(" ", trim($splittedLine[1]));	
+	        foreach($splittedReferences as $reference)
+	        {
+	        	$splittedPositionInfos = explode(":", $reference);	
+	        	//echo $splittedPositionInfos[0] . " + " . $splittedPositionInfos[1] . '<br>';
+	        	if(!isset($positions[trim($splittedLine[0])]))
+	        	{
+	        		$positions[trim($splittedLine[0])] = array();
+	        	}
+        		if(!isset($positions[trim($splittedLine[0])][$splittedPositionInfos[0]]))
+        		{
+        			$positions[trim($splittedLine[0])][$splittedPositionInfos[0]] = array();
+        		}
+        		array_push($positions[trim($splittedLine[0])][$splittedPositionInfos[0]], $splittedPositionInfos[1]);
+	        }        
+	    }
+	    fclose($handle);
+	} 
+	else 
+	{
+		echo "Erreur à la lecture du fichier de positions";
+		exit();
+	}
+
+	// Debug
+	foreach($positions as $keyPos => $valuePos)
+	{
+		echo "Le mot " . $keyPos . " est présent dans:<br>";
+		foreach($positions[$keyPos] as $key1 => $value1)
+		{
+			echo "- le document " . $key1 . " aux positions {";
+			echo join(",",$value1);
+			echo '}<br>';
+		}
+		echo '<br>';
+	}
+
+	exit();
  ?>
 <!DOCTYPE html>
 <html>
