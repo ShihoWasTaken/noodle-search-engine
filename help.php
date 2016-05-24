@@ -61,30 +61,109 @@
 				<div class="col-md-5 col-md-offset-1">
 					<div class="tab-content">
 						<div id="home" class="tab-pane fade in active">
-							<h3>HOME</h3>
+							<h2>Effectuer une recherche sur Google</h2>
 							<p>Some content.</p>
 						</div>
 						<div id="menu1" class="tab-pane fade">
-							<h3>Menu 1</h3>
-							<p>Some content in menu 1.</p>
+							<h2>Opérateurs de recherche</h2>
+							<p>Vous pouvez utiliser des opérateurs de recherche et des signes de ponctuation pour obtenir des résultats de recherche plus précis. À l'exception des exemples ci-dessous, la plupart des signes de ponctuation ne sont pas pris en compte.</p>
+							<h3>Signes de ponctuation et symboles</h3>
+							<p>Même si vous pouvez utiliser les signes de ponctuation répertoriés ci-dessous dans vos recherches, les inclure n'améliore pas nécessairement les résultats. Si nous pensons que les signes de ponctuation ne vous permettront pas d'obtenir des résultats plus pertinents, nous vous suggérerons des termes de recherche sans ponctuation.</p>
+							<table class="table-responsive table-bordered">
+								<thead>
+									<tr>
+										<th>Symbole</th>
+										<th>Utilisation</th>
+									<tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="green">$</td>
+										<td>
+											<p>Permet de rechercher des prix.
+											<br>
+											Exemple : <span class="green">nikon $400</span></p>
+										</td>
+									</tr>
+									<tr>
+										<td class="green">–</td>
+										<td>
+											<p>Pour exclure les résultats de recherche incluant un mot ou site précis, précédez ces derniers d'un tiret. Ce caractère est particulièrement utile pour des homonymes tels que "jaguar", qui peut faire référence à la marque de voiture ou à l'animal.
+											<br>
+											Exemple : <span class="green">vitesse jaguar -voiture</span></p>
+										</td>
+									</tr>
+									<tr>
+										<td class="green">"expression"</td>
+										<td>
+											<p>Si vous mettez des guillemets autour d'un mot ou d'une expression, les résultats n'incluent que les pages où ces mots s'affichent dans le même ordre. N'utilisez les guillemets que si vous souhaitez rechercher un mot ou une expression précise. Dans le cas contraire, vous risqueriez d'exclure des résultats de recherche utiles.
+											<br>
+											Exemple : <span class="green">"imagine all the people"</span></p>
+										</td>
+									</tr>
+									<tr>
+										<td class="green">*</td>
+										<td>
+											<p>Lorsque vous ne connaissez pas un terme ou que vous n'êtes pas sûr d'un terme dans votre requête, utilisez un astérisque comme substitut.
+											<br>
+											Exemple : <span class="green">"un * vaut mieux que deux *"</span></p>
+										</td>
+									</tr>
+									<tr>
+										<td class="green">..</td>
+										<td>
+											<p>Utilisez deux points sans espace entre des nombres pour voir les résultats qui contiennent les nombres inclus dans cette plage de valeurs.
+											<br>
+											Exemple : <span class="green">appareil photo 50 €..100 €</span></p>
+										</td>
+									</tr>									
+								</tbody>
+							</table>
+							<h3>Opérateurs de recherche</h3>
+							<p>Les opérateurs de recherche sont des termes qui vous permettent d'affiner vos résultats de recherche. Vous n'avez pas besoin de les mémoriser. La page <a href="advanced_search.php">Recherche avancée</a> vous permet, elle aussi, d'affiner vos résultats de recherche.</p>
+							<table class="table-responsive table-bordered">
+								<thead>
+									<tr>
+										<th>Opérateur</th>
+										<th>Utilisation</th>
+									<tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="green">OR</td>
+										<td>
+											<p>Permet de rechercher des pages qui ne contiennent qu'un terme parmi plusieurs.
+											<br>
+											Exemple : <span class="green">marathon OR course</span></p>
+										</td>
+									</tr>		
+								</tbody>
+							</table>
 						</div>
 						<div id="menu2" class="tab-pane fade">
-							<h3>Menu 2</h3>
-							<p>Some content in menu 2.</p>
+							<h2>Recherche avancée</h2>
+							<p>Utilisez la page "Recherche avancée" pour affiner les résultats lors de recherches complexes.</p>
+							<h3>Effectuer une recherche avancée</h3>
+							<ol>
+								<li>Rendez-vous sur la page <a href="advanced_search.php">Recherche avancée</a>.</li>
+								<li>Saisissez vos termes de recherche dans la section "Trouvez des pages avec".</li>
+								<li>Choisissez les filtres à utiliser dans la section "Affinez ensuite la recherche par". Vous pouvez utiliser un ou plusieurs filtres.</li>
+								<li>Cliquez sur Recherche avancée.</li>
+							</ol>
+							<p>Astuce : Vous pouvez également utiliser plusieurs de ces filtres dans le champ de recherche avec des opérateurs de recherche.</p>
 						</div>
 						<div id="menu3" class="tab-pane fade">
-							<h3>Menu 3</h3>
-							<p>Some content in menu 3.</p>
+							<h2>Menu 3</h2>
+							<p></p>
 						</div>
 					</div>
-					<h2>Opérateurs de recherche</h2>
 				</div>
 				<div class="col-md-3">
 					<ul class="nav nav-pills nav-stacked">
-						<li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-						<li><a data-toggle="pill"  href="#menu1">Menu 1</a></li>
-						<li><a data-toggle="pill"  href="#menu2">Menu 2</a></li>
-						<li><a data-toggle="pill"  href="#menu3">Menu 3</a></li>
+						<li class="active"><a data-toggle="pill" href="#home">Effectuer une recherche sur Google</a></li>
+						<li><a data-toggle="pill"  href="#menu1">Opérateurs de recherche</a></li>
+						<li><a data-toggle="pill"  href="#menu2">Recherche avancée</a></li>
+						<li><a data-toggle="pill"  href="#menu3">Page de résultats de recherche Google</a></li>
 					</ul>
 				</div>
 			</div>

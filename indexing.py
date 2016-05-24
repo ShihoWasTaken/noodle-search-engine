@@ -11,9 +11,10 @@ import os
 import sys
 import collections
 import re
-from nltk import PorterStemmer
+from nltk import PorterStemmer					# Pour le Stemmer de Porter de la lib NLTK
 from lxml import etree
-
+import math										# Pour la fonction log
+from __future__ import division					# Pour la division en float
 
 #########################################################################################
 #																						#
@@ -79,6 +80,19 @@ def trim(word):
 	word = word.lower()
 	return word
 
+def idf(term):
+	global total_number_of_docs
+	dft = 0							# Number of documents containing the term t
+	N = total_number_of_docs		# Total number of documents
+	return math.log10(N/dft)
+
+# Nombre d’apparition du mot dans le document divisé par le nombre d’apparition du mot le plus fréquent
+def tf(term, document):
+	return None
+
+def tfidf():
+	return None
+
 #########################################################################################
 #																						#
 #									  	   Main			 								#
@@ -86,6 +100,7 @@ def trim(word):
 #########################################################################################
 
 if __name__ == '__main__':
+	total_number_of_docs = 0
 	stopwords = getStopwords()
 	parser = etree.XMLParser(recover=True)
 	documentPerFile = open("output/documentPerFile.txt","w")
@@ -101,6 +116,7 @@ if __name__ == '__main__':
 				if (child.tag.upper() == "DOCNO"):
 					docno = child.text
 					documentPerFile.write(docno + " | " + fichier + "\n")
+					total_number_of_docs += 1
 				elif (child.tag.upper() == "TEXT"):
 					if child.text is not None:
 						# On ajoute le résume du texte au fichier des résumés
@@ -126,7 +142,7 @@ if __name__ == '__main__':
 									indexPositionList[stemmedWord].append(docno + ":" + str(wordPosition))							
 	documentPerFile.close()								
 	documentAbstract.close()
-
+	#sys.exit(0) # Pour tester le tf idf
 	indexedFile = open("output/indexedStem.txt","w")
 	for stem, listDoc in docNoList.iteritems():
 		indexedFile.write(stem + " | " + " ".join(listDoc) + "\n")
@@ -138,4 +154,4 @@ if __name__ == '__main__':
 	indexPosition.close()
 
 	print "nombre stems = " + str(len(docNoList))
-			#sys.exit(0) # On termine après le premier fichier
+	#sys.exit(0) # On termine après le premier fichier
