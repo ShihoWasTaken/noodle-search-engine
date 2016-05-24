@@ -53,3 +53,10 @@ span.green-letter
     outline: 0;
     padding: 0 8px;
 }
+
+#help-link, #help-link-icon
+{
+	font-size: 20px;
+	vertical-align: middle;
+	line-height: 22px;
+}

@@ -122,7 +122,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Résultats de la recherche</title>
+        <title>Résultats de la recherche</title>        
+        <link rel="shortcut icon" href="favicon.png" />
         <!-- JQuery 2 -->
         <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 		<!-- Latest compiled and minified CSS -->
@@ -166,8 +167,11 @@
 	                        </span>
 	                    </div>
 					</form>
+					<p class="navbar-text navbar-right">
+						<a class="btn btn-red" href="advanced_search.php">Recherche avancée</a>
+						<a class="btn btn-red" href="help.php" id="help-link" title="Aide"><i class="fa fa-question-circle" aria-hidden="true" id="help-link-icon"></i></a>
+					</p>
 				</div>
-				<a class="btn btn-red" href="">Recherche avancée</a>
 				<!-- /.navbar-collapse -->
 			</div>
 			<!-- /.container-fluid -->

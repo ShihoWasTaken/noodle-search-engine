@@ -9,6 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Recherche avancée</title>
+        <link rel="shortcut icon" href="favicon.png" />
         <!-- JQuery 2 -->
         <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 		<!-- Latest compiled and minified CSS -->
@@ -43,6 +44,9 @@
 							<span class="blue-letter">N</span><span class="red-letter">o</span><span class="yellow-letter">o</span><span class="blue-letter">d</span><span class="green-letter">l</span><span class="red-letter">e</span>
 						</div></a>
 				</div>
+				<p class="navbar-text navbar-right">
+					<a class="btn btn-red" href="help.php" id="help-link" title="Aide"><i class="fa fa-question-circle" aria-hidden="true" id="help-link-icon"></i></a>
+				</p>
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
