@@ -86,7 +86,6 @@ def trim(word):
 #########################################################################################
 
 if __name__ == '__main__':
-	stem = getStemOrderedDict()
 	stopwords = getStopwords()
 	parser = etree.XMLParser(recover=True)
 	documentPerFile = open("output/documentPerFile.txt","w")
