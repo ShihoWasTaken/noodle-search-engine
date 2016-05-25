@@ -47,6 +47,6 @@ if __name__ == '__main__':
 			values = stemOrderedDict.get(stemmedWord, None)
 			if values is not None:
 				for document in values:
-					document = document.replace('\n','')
-					resultFile.write(document + '\n')
+					splitted = document.replace('\n','').split(':')
+					resultFile.write(splitted[0] + '\n')
 	resultFile.close()

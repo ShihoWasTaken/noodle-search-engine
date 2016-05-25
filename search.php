@@ -65,7 +65,7 @@
 	}
 
 	// Positions mots
-	$handle = fopen("output/indexPosition.txt", "r");
+	$handle = fopen("output/indexedStem.txt", "r");
 	if ($handle) 
 	{
 		// $positions[stem][document][position]
