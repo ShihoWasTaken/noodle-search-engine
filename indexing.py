@@ -84,16 +84,16 @@ def trim(word):
 
 def idf(term):
 	global total_number_of_docs
-	dft = 0							# Number of documents containing the term t
+	dft = len(docNoList[term])		# Number of documents containing the term t
 	N = total_number_of_docs		# Total number of documents
 	return math.log10(N/dft)
 
-# Nombre d’apparition du mot dans le document divisé par le nombre d’apparition du mot le plus fréquent
+# Nombre d’apparitions de term dans document
 def tf(term, document):
-	return None
+	return len(indexPositionList[term][document])
 
 def tfidf(term, document):
-	return idf(term) * tf(term, document)
+	return tf(term, document)*idf(term)
 
 #########################################################################################
 #																						#
