@@ -147,19 +147,14 @@ if __name__ == '__main__':
 										indexPositionList[stemmedWord][docno].append(str(wordPosition))						
 	documentPerFile.close()								
 	documentAbstract.close()
-	#sys.exit(0) # Pour tester le tf idf
-	indexedFile = open("output/indexedStem.txt","w")
-	for stem, listDoc in docNoList.iteritems():
-		indexedFile.write(stem + " | " + " ".join(listDoc) + "\n")
-	indexedFile.close()
 
 	indexPositionListToWrite = collections.OrderedDict()
-	indexPosition = open("output/indexPosition.txt","w")
+	indexPosition = open("output/indexedStem.txt","w")
 	for stem, docnoList in indexPositionList.iteritems():
 		indexPositionListToWrite[stem] = []
 		for docno, positions in docnoList.iteritems():
 			for position in positions:
-				indexPositionListToWrite[stem].append(docno + ":" + position)
+				indexPositionListToWrite[stem].append(docno + ":" + position + ":" + str(tfidf(stem,docno)))
 		indexPosition.write(stem + " | " + " ".join(indexPositionListToWrite[stem]) + "\n")
 
 	indexPosition.close()
