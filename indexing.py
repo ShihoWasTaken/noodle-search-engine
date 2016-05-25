@@ -7,6 +7,7 @@
 #																						#
 #########################################################################################
 
+from __future__ import division					# Pour la division en float
 import os
 import sys
 import collections
@@ -14,7 +15,7 @@ import re
 from nltk import PorterStemmer					# Pour le Stemmer de Porter de la lib NLTK
 from lxml import etree
 import math										# Pour la fonction log
-from __future__ import division					# Pour la division en float
+
 
 #########################################################################################
 #																						#
@@ -30,6 +31,7 @@ from __future__ import division					# Pour la division en float
 
 docNoList = collections.OrderedDict()	# La map qui va contenir la liste des docno avec pour chaque clé un stem
 indexPositionList = collections.OrderedDict()	# La map qui va contenir la liste des index positionnels avec pour chaque clé un stem
+total_number_of_docs = 0
 
 #########################################################################################
 #																						#
@@ -90,8 +92,8 @@ def idf(term):
 def tf(term, document):
 	return None
 
-def tfidf():
-	return None
+def tfidf(term, document):
+	return idf(term) * tf(term, document)
 
 #########################################################################################
 #																						#
@@ -100,7 +102,6 @@ def tfidf():
 #########################################################################################
 
 if __name__ == '__main__':
-	total_number_of_docs = 0
 	stopwords = getStopwords()
 	parser = etree.XMLParser(recover=True)
 	documentPerFile = open("output/documentPerFile.txt","w")
@@ -137,9 +138,13 @@ if __name__ == '__main__':
 									if(docno not in docNoList[stemmedWord]):
 										docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
 								if(indexPositionList.get(stemmedWord, None) is None):		# On teste si la clé du dictionnaire est vide
-									indexPositionList[stemmedWord] = [docno + ":" + str(wordPosition)]
+									indexPositionList[stemmedWord] = collections.OrderedDict()
+									indexPositionList[stemmedWord][docno] = [str(wordPosition)]
 								else:
-									indexPositionList[stemmedWord].append(docno + ":" + str(wordPosition))							
+									if(indexPositionList[stemmedWord].get(docno, None) is None):	
+										indexPositionList[stemmedWord][docno] = [str(wordPosition)]
+									else:
+										indexPositionList[stemmedWord][docno].append(str(wordPosition))						
 	documentPerFile.close()								
 	documentAbstract.close()
 	#sys.exit(0) # Pour tester le tf idf
@@ -148,9 +153,15 @@ if __name__ == '__main__':
 		indexedFile.write(stem + " | " + " ".join(listDoc) + "\n")
 	indexedFile.close()
 
+	indexPositionListToWrite = collections.OrderedDict()
 	indexPosition = open("output/indexPosition.txt","w")
-	for stem, position in indexPositionList.iteritems():
-		indexPosition.write(stem + " | " + " ".join(position) + "\n")
+	for stem, docnoList in indexPositionList.iteritems():
+		indexPositionListToWrite[stem] = []
+		for docno, positions in docnoList.iteritems():
+			for position in positions:
+				indexPositionListToWrite[stem].append(docno + ":" + position)
+		indexPosition.write(stem + " | " + " ".join(indexPositionListToWrite[stem]) + "\n")
+
 	indexPosition.close()
 
 	print "nombre stems = " + str(len(docNoList))
