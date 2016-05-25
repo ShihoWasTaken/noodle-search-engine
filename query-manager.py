@@ -48,5 +48,5 @@ if __name__ == '__main__':
 			if values is not None:
 				for document in values:
 					splitted = document.replace('\n','').split(':')
-					resultFile.write(splitted[0] + '\n')
+					resultFile.write(splitted[0] + '|' + splitted[2] + '\n')
 	resultFile.close()

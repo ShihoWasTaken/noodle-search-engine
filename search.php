@@ -8,6 +8,11 @@
 	$results = array();
 	system('./query-manager.py ' . $_GET['query']);
 
+    function cmp($a, $b)
+	{
+	    return strcmp($a->getTFIDF(), $b->getTFIDF());
+	}
+
 	// Fichier documents
 	$handle = fopen("output/documentPerFile.txt", "r");
 	if ($handle) 
@@ -54,9 +59,11 @@
 	    {
 	        // process the line read.
 	        $splitted = explode("|", $line);
-	        $results[] = new Result(trim($splitted[0]), $fileOfDocument[trim($splitted[0])], $abstracts[trim($splitted[0])] . '...');
+	        $results[] = new Result(trim($splitted[0]), $fileOfDocument[trim($splitted[0])], $abstracts[trim($splitted[0])] . '...', $splitted[1]);
 	    }
 	    fclose($handle);
+	    // Tri du tableau par TFIDF
+		//usort($results, "cmp");
 	} 
 	else 
 	{
