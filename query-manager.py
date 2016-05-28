@@ -10,6 +10,7 @@
 import os
 import sys
 import indexing
+import operator
 
 #########################################################################################
 #																						#
@@ -38,6 +39,7 @@ import indexing
 
 if __name__ == '__main__':
 	resultFile = open('output/results.txt','w')
+	results = dict()
 	# Pour chaque argument sans le ./query-manager.py
 	stemOrderedDict = indexing.getStemOrderedDict()
 	writted = []	# document déjà présent dans les résultats
@@ -50,6 +52,10 @@ if __name__ == '__main__':
 				for document in values:
 					splitted = document.replace('\n','').split(':')
 					if splitted[0] not in writted:
-						resultFile.write(splitted[0] + '|' + splitted[2] + '\n')
+						#resultFile.write(splitted[0] + '|' + splitted[2] + '\n')
+						results[splitted[0]] = float(splitted[2])
 						writted.append(splitted[0])	# Pour ne pas avoir plusieurs fois le résultat
+	sorted_results = sorted(results.items(), key=operator.itemgetter(1), reverse=True)
+	for key, value in sorted_results:
+		resultFile.write(key + '|' + str(value) + '\n')
 	resultFile.close()

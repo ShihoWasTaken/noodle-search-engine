@@ -8,11 +8,6 @@
 	$results = array();
 	system('./query-manager.py ' . $_GET['query']);
 
-    function cmp($a, $b)
-	{
-	    return strcmp($a->getTFIDF(), $b->getTFIDF());
-	}
-
 	// Fichier documents
 	$handle = fopen("output/documentPerFile.txt", "r");
 	if ($handle) 
@@ -63,7 +58,13 @@
 	    }
 	    fclose($handle);
 	    // Tri du tableau par TFIDF
-		//usort($results, "cmp");
+	    /* DEBUG TRI
+		foreach($results as $result)
+		{
+			echo "Nom = " . $result->getTitle() . " | TFIDF = " . $result->getTFIDF() . '<br>';
+		}
+		exit();
+		*/
 	} 
 	else 
 	{

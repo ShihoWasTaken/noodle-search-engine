@@ -121,7 +121,7 @@ if __name__ == '__main__':
 				elif (child.tag.upper() == "TEXT"):
 					if child.text is not None:
 						# On ajoute le résume du texte au fichier des résumés
-						documentAbstract.write(docno + " | " + child.text[:50].replace("\n","") + "\n")
+						documentAbstract.write(docno + " | " + child.text[:80].replace("\n","") + "\n")
 						words = re.split(' |\n|\t', child.text)
 						wordPosition = 0
 						for word in words:
