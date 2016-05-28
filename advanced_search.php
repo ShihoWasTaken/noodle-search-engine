@@ -98,7 +98,7 @@
 								<input type="email" class="form-control" id="oneOfThisWords" name="oneOfThisWords">
 							</div>
 							<div class="col-md-4">
-							Saisissez OR entre tous les mots à inclure : <code>"miniature OR standard</code>
+							Saisissez OR entre tous les mots à inclure : <code>miniature OR standard</code>
 							</div>
 						</div>
 						<div class="row">

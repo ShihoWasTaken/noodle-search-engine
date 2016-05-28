@@ -5,9 +5,17 @@
 
 	require 'classes/Result.php';
 
-	$results = array();
+	// Parsing de la query
+	//echo $_GET['query'];	
+	//exit();
+
+
 	system('./query-manager.py ' . $_GET['query']);
 
+
+
+
+	$results = array();
 	// Fichier documents
 	$handle = fopen("output/documentPerFile.txt", "r");
 	if ($handle) 
