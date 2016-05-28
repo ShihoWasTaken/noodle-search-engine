@@ -40,6 +40,7 @@ if __name__ == '__main__':
 	resultFile = open('output/results.txt','w')
 	# Pour chaque argument sans le ./query-manager.py
 	stemOrderedDict = indexing.getStemOrderedDict()
+	writted = []	# document déjà présent dans les résultats
 	for word in sys.argv[1:]:
 		# On traite le mot seulement s'il n'est pas dans les stopwords
 		if indexing.stemmer(word) not in indexing.getStopwords():
@@ -48,5 +49,7 @@ if __name__ == '__main__':
 			if values is not None:
 				for document in values:
 					splitted = document.replace('\n','').split(':')
-					resultFile.write(splitted[0] + '|' + splitted[2] + '\n')
+					if splitted[0] not in writted:
+						resultFile.write(splitted[0] + '|' + splitted[2] + '\n')
+						writted.append(splitted[0])	# Pour ne pas avoir plusieurs fois le résultat
 	resultFile.close()
