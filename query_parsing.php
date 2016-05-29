@@ -158,6 +158,4 @@
 
 	//system('./query-manager.py ' . $_GET['query']);
 	$_SESSION['query'] = $_GET['query'];
-	echo "Session = " . $_SESSION['query'];
-	exit();
 	header('Location: search.php?' . join('&',$args)); 
