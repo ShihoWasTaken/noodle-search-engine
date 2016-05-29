@@ -136,26 +136,32 @@
 
 	//exit();
 
-	$args[] = 'nw=' . join(' ', $normalWords);
+	if(count($normalWords) > 0)
+		$args[] = 'nw=' . '"' . join(':', $normalWords) . '"';
 	if(count($composedWords) > 0)
 	{
+		unset($temp_args);
 		foreach($composedWords as $cw)
 		{
-			$temp_args[] = '"' . join(' ',$cw) . '"';
+			$temp_args[] = join(':',$cw);
 		}
-		$args[] = 'cw=' . join('',$temp_args); 
+		$args[] = 'cw=' . '"' . join('||',$temp_args) . '"'; 
 	}
-	$args[] = 'nwtr=' . join(' ', $normalWordsToRemove);
+	if(count($normalWordsToRemove) > 0)
+		$args[] = 'nwtr=' . '"' . join(':', $normalWordsToRemove) . '"';
 	if(count($composedWordsToRemove) > 0)
 	{
+		unset($temp_args);
 		foreach($composedWordsToRemove as $cw)
 		{
-			$temp_args[] = '"' . join(' ',$cw) . '"';
+			$temp_args[] = join(':',$cw);
 		}
-		$args[] = 'cwtr=' . join('',$temp_args); 
+		$args[] = 'cwtr=' . '"' . join('||',$temp_args) . '"'; 
 	}
-	$args[] = 'ow=' . join(' ', $orWords);
+	if(count($orWords) > 0)
+		$args[] = 'ow=' . '"' . join(':', $orWords) . '"';
 
-	//system('./query-manager.py ' . $_GET['query']);
 	$_SESSION['query'] = $_GET['query'];
+	//echo join('&',$args);
+	//exit();
 	header('Location: search.php?' . join('&',$args)); 

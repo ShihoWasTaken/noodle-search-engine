@@ -8,9 +8,25 @@
 	// Parsing de la query
 	//echo $_GET['query'];	
 	//exit();
+	$args = array();
+	if(isset($_GET['nw']))
+		$args['nw'] = $_GET['nw'];
+	if(isset($_GET['cw']))
+		$args['cw'] = $_GET['cw'];
+	if(isset($_GET['nwtr']))
+		$args['nwtr'] = $_GET['nwtr'];
+	if(isset($_GET['cwtr']))
+		$args['cwtr'] = $_GET['cwtr'];
+	if(isset($_GET['ow']))
+		$args['ow'] = $_GET['ow'];
+	foreach($args as $key => $value)
+	{
+		$arguments[] = $key . '=' . $value;
+	}
 
-
-	system('./query-manager.py ' . $_GET['query']);
+	//echo './query-manager.py ' . join(' ', $arguments);
+	//exit();
+	system('./query-manager.py ' . join(' ', $arguments));
 
 
 

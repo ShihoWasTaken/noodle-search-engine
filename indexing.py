@@ -40,7 +40,7 @@ total_number_of_docs = 0
 #########################################################################################
 
 def getStopwords():
-	fichier = open('stopwords.txt', 'r')
+	fichier = open('txt/stopwords.txt', 'r')
 	stopwords = [word.strip('\n\r') for word in fichier.readlines()]
 	# print stopwords
 	fichier.close()
