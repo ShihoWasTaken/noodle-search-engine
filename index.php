@@ -1,3 +1,6 @@
+<?php 
+	session_start();
+ ?>
 <!DOCTYPE html>
 <html>
 	<head>		
@@ -32,7 +35,7 @@
 								<span class="blue-letter">N</span><span class="red-letter">o</span><span class="yellow-letter">o</span><span class="blue-letter">d</span><span class="green-letter">l</span><span class="red-letter">e</span>
 							</div>
 						</h1>
-		                <form role="form" method="get" action="search.php">
+		                <form role="form" method="get" action="query_parsing.php">
 		                    <div class="input-group">
 		                        <input id="searchbar" name="query" type="text" class="form-control" placeholder="Entrez votre recherche" autofocus>
 		                        <span class="input-group-btn">

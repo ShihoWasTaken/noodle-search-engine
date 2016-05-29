@@ -1,7 +1,7 @@
 <?php 
 	ini_set("memory_limit","2048M");
 	define('MAX_RESULT_PER_PAGE', 6);
-
+	session_start();
 
 	require 'classes/Result.php';
 
@@ -175,9 +175,9 @@
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<form class="navbar-form navbar-left" role="search" method="get" action="search.php">
+					<form class="navbar-form navbar-left" role="search" method="get" action="query_parsing.php">
 	                    <div class="input-group">
-	                        <input id="searchbar" name="query" type="text" class="form-control" placeholder="Entrez votre recherche" value="<?php echo $_GET["query"]; ?>" autofocus>
+	                        <input id="searchbar" name="query" type="text" class="form-control" placeholder="Entrez votre recherche" value="<?php echo htmlspecialchars($_SESSION['query']); ?>" autofocus>
 	                        <span class="input-group-btn">	                        
 	                        	<button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
 	                        </span>

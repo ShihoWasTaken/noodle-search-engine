@@ -1,3 +1,6 @@
+<?php 
+	session_start();
+ ?>
 <!DOCTYPE html>
 <html>
 	<head>		
@@ -45,7 +48,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<form class="navbar-form navbar-left" role="search" method="get" action="search.php">
 	                    <div class="input-group">
-	                        <input id="searchbar" name="query" type="text" class="form-control" placeholder="Entrez votre recherche" value="<?php echo $_GET["query"]; ?>" autofocus>
+	                        <input id="searchbar" name="query" type="text" class="form-control" placeholder="Entrez votre recherche" value="<?php echo htmlspecialchars($_SESSION['query']); ?>" autofocus>
 	                        <span class="input-group-btn">	                        
 	                        	<button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
 	                        </span>
