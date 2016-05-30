@@ -139,7 +139,7 @@ if __name__ == '__main__':
 			composedWordsToRemoveResults = getResultsOfComposedWords(argument)
 		# Normal Words To Remove
 		if index == "nwtr":
-			normalWordsToRemoveResults = getResultsOfComposedWords(argument)
+			normalWordsToRemoveResults = getResultsOfNormalWords(argument)
 		# OR Words
 		if index == "ow":
 			orWordsResults = getResultsOfOrWords(argument)
