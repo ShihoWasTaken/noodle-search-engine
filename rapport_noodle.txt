@@ -1,0 +1,38 @@
+Projet de Recherche Documentaire
+Kenny GUIOUGOU & Morgane TROYSI
+M1 Informatique
+
+Introduction
+Ce projet a pour but de créer un moteur de recherche documentaire. Contrairement à Google, le moteur n'indexera pas le web mais seulement une base documentaire donnée contenue dans des fichiers XML fournis dans le répertoire data.
+
+Installation du projet
+Déposer le répertoire sur un serveur. 
+La page d'accueil est accessible via l'url [votre-chemin]/noodle-search-engine/index.php
+La page de recherche avancée est accessible via lurl [votre-chemin]/noodle-search-engine/advanced_search.php
+
+Implémentation
+Le projet a été réalisé en Python et en Php et implémente les fonctionnalités suivantes :
+- Indexation du corpus de documents fournis
+- Utilisation d'une procédure de stemming (PorterStemmer)
+- Utilisation d'une liste de stopwords
+- Utilisation des index positionnels
+- Gestion des requêtes contenant de un à plusieurs mots et contenant des opérateurs logiques
+- Réalisation d'une interface graphique permettant une recherche simple ainsi qu'une recherche avancée et permettant un accès facile aux résultats
+- Tri des résultats en fonction du tf-idf
+
+Indexation
+La phase d'indexation a été réalisée en Python. Pour chaque fichier présent dans le répertoire data, on parcourt le contenu des balises TEXT contenues dans les balises DOC. On enlève les caractères spéciaux et on stemmise chaque token à l'aide de l'algorithme de PorterStemmer avant de l'ajouter à une structure dictionnaire. Si un token fait partie de la liste des stopwords, alors il n'est pas ajouté au dictionnaire.
+La structure du dictionnaire contient, pour chaque stem, les identifiants des documents dans lesquels il est présent, ainsi que les positions auxquelles il se trouve dans chaque document.
+
+Gestion de la requête utilisateur
+Il existe plusieurs options pour effectuer la requête. L'utilisateur peut :
+- Chercher des mots normaux
+- Chercher des groupes de mots (à mettre entre "")
+- Exclure des mots de la recherche (les mots à exclure doivent être précédés d'un -)
+- Utiliser des opérateurs logiques tels que le OR
+(Pour une liste et des exemples détaillés des options, voir la page de recherche avancée)
+
+Chaque mot est parsé par un script Php qui repère s'il s'agit d'un mot normal, d'un groupe de mots, ou d'un opérateur logique. Il appelle ensuite un script Python pour la stemmisation. S'il ne fait pas partie des stopwords, on cherche alors s'il est contenu dans le dictionnaire réalisé lors de la phase d'indexation. Si oui, alors on récupère la liste des documents dans lesquels il apparaît, ainsi que ses positions. A partir de ces données, on peut trier la liste des résultats selon leur tf-idf. 
+
+Interface Graphique
+L'interface graphique du moteur de recherche a été réalisée en HTML, CSS, Bootstrap et jQuery. L'utilisateur peut effectuer une recherche simple via la barre de recherche, ou bien effectuer une recherche avancée sur la page correspondante afin d'utiliser des opérateurs logiques ou de rechercher des suites de mots. Les actions appellent des scripts Php qui eux-mêmes appellent des scripts Python lorsqu'une gestion de fichiers est nécessaire.
