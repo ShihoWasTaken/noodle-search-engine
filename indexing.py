@@ -128,23 +128,23 @@ if __name__ == '__main__':
 							wordPosition += 1
 							word = trim(word)
 							stemmedWord = stemmer(word)
-							if word not in stopwords:
-								if(docNoList.get(stemmedWord, None) is None):		# On teste si la clé du dictionnaire est vide
-									#print "On crée la clé " + stemmer(word) + " avec le num " + docno
-									docNoList[stemmedWord] = [docno]					# On crée une liste contenant le docno actuel
-								else:										# Si elle n'est pas vide
-									#print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
-									# Si le docno n'est pas dans la case du tableau, on l'ajoute (à revoir pour les pertinences)
-									if(docno not in docNoList[stemmedWord]):
-										docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
-								if(indexPositionList.get(stemmedWord, None) is None):		# On teste si la clé du dictionnaire est vide
-									indexPositionList[stemmedWord] = collections.OrderedDict()
+							#if word not in stopwords:
+							if(docNoList.get(stemmedWord, None) is None):		# On teste si la clé du dictionnaire est vide
+								#print "On crée la clé " + stemmer(word) + " avec le num " + docno
+								docNoList[stemmedWord] = [docno]					# On crée une liste contenant le docno actuel
+							else:										# Si elle n'est pas vide
+								#print "On ajoute le num " + docno + " à docNoList[" + stemmer(word) + "]"
+								# Si le docno n'est pas dans la case du tableau, on l'ajoute (à revoir pour les pertinences)
+								if(docno not in docNoList[stemmedWord]):
+									docNoList[stemmedWord].append(docno)			# On ajoute le docno à la liste
+							if(indexPositionList.get(stemmedWord, None) is None):		# On teste si la clé du dictionnaire est vide
+								indexPositionList[stemmedWord] = collections.OrderedDict()
+								indexPositionList[stemmedWord][docno] = [str(wordPosition)]
+							else:
+								if(indexPositionList[stemmedWord].get(docno, None) is None):	
 									indexPositionList[stemmedWord][docno] = [str(wordPosition)]
 								else:
-									if(indexPositionList[stemmedWord].get(docno, None) is None):	
-										indexPositionList[stemmedWord][docno] = [str(wordPosition)]
-									else:
-										indexPositionList[stemmedWord][docno].append(str(wordPosition))						
+									indexPositionList[stemmedWord][docno].append(str(wordPosition))						
 	documentPerFile.close()								
 	documentAbstract.close()
 
