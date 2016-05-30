@@ -64,12 +64,41 @@ def getResultsOfComposedWords(argument):
 		#sys.exit()
 	return results
 
+def getResultsOfNormalWords(argument):
+	results = dict()
+	for word in argument:
+		word = word.lower()
+		writted = []	# document déjà présent dans les résultats
+		# On traite le mot seulement s'il n'est pas dans les stopwords
+		if indexing.stemmer(word) not in stopwords:
+			stemmedWord = indexing.stemmer(word)
+			values = stemOrderedDict.get(stemmedWord, None)
+			if values is not None:
+				for document in values:
+					splitted = document.replace('\n','').split(':')
+					if splitted[0] not in writted:
+						#resultFile.write(splitted[0] + '|' + splitted[2] + '\n')
+						if splitted[0] not in results:
+							results[splitted[0]] = float(splitted[2])
+							writted.append(splitted[0])	# Pour ne pas avoir plusieurs fois le résultat
+						else:
+							results[splitted[0]] += float(splitted[2])
+	return results
+
+def getResultsOfOrWords(argument):
+	results = dict()
+	return results
+
 def addResult(key, value):
 	global results
 	if key not in results:
 		results[key] = float(result)
 	else:		
 		results[key] += float(result)	
+
+def removeResult(key):
+	global results
+	return results.pop(key, None)
 
 #########################################################################################
 #																						#
@@ -82,6 +111,9 @@ if __name__ == '__main__':
 	results = dict()
 	composedWordsResults = dict()
 	normalWordsResults = dict()
+	composedWordsToRemoveResults = dict()
+	normalWordsToRemoveResults = dict()
+	orWordsResults = dict()
 	# Pour chaque argument sans le ./query-manager.py
 	stemOrderedDict = indexing.getStemOrderedDict()
 	arguments = dict()
@@ -103,36 +135,26 @@ if __name__ == '__main__':
 		if index == "cw":
 			composedWordsResults = getResultsOfComposedWords(argument)
 		# Composed Words To Remove
-		# Composed Words To Remove
+		if index == "cwtr":
+			composedWordsToRemoveResults = getResultsOfComposedWords(argument)
 		# Normal Words To Remove
-		# Normal Words To Remove
+		if index == "nwtr":
+			normalWordsToRemoveResults = getResultsOfComposedWords(argument)
 		# OR Words
-		# OR Words
+		if index == "ow":
+			orWordsResults = getResultsOfOrWords(argument)
 		# Normal Words
 		if index == "nw":
-			normalWordsResults = dict()
-			for word in argument:
-				word = word.lower()
-				writted = []	# document déjà présent dans les résultats
-				# On traite le mot seulement s'il n'est pas dans les stopwords
-				if indexing.stemmer(word) not in stopwords:
-					stemmedWord = indexing.stemmer(word)
-					values = stemOrderedDict.get(stemmedWord, None)
-					if values is not None:
-						for document in values:
-							splitted = document.replace('\n','').split(':')
-							if splitted[0] not in writted:
-								#resultFile.write(splitted[0] + '|' + splitted[2] + '\n')
-								if splitted[0] not in normalWordsResults:
-									normalWordsResults[splitted[0]] = float(splitted[2])
-									writted.append(splitted[0])	# Pour ne pas avoir plusieurs fois le résultat
-								else:
-									normalWordsResults[splitted[0]] += float(splitted[2])
+			normalWordsResults = getResultsOfNormalWords(argument)
 		# Ici on fusionne les résultats
 		for key, result in composedWordsResults.iteritems():
 			addResult(key, result)	
 		for key, result in normalWordsResults.iteritems():
 			addResult(key, result)	
+		for key, result in composedWordsToRemoveResults.iteritems():
+			removeResult(key)	
+		for key, result in normalWordsToRemoveResults.iteritems():
+			removeResult(key)	
 		# Après la création de tout les résultats, on les écrit
 		resultFile = open('output/results.txt','w')
 		sorted_results = sorted(results.items(), key=operator.itemgetter(1), reverse=True)
