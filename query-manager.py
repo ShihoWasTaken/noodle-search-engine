@@ -31,6 +31,46 @@ import operator
 #																						#
 #########################################################################################
 
+def getResultsOfComposedWords(argument):
+	results = dict()
+	for word in argument:
+		for chaine in word:
+			position_check_list = []
+			for indexToken, token in enumerate(chaine.split(':')):
+				#print token
+				stemmedWord = indexing.stemmer(token)
+				values = stemOrderedDict.get(stemmedWord, None)
+				if values is not None:
+					position_check_list.append(values)
+			if len(position_check_list) > 0:
+				ok_documents = position_check_list[0]
+				for i in range(1,len(position_check_list)):
+					temp_ok_documents = None
+					for document_infos in ok_documents:							
+						splitedDocument = document_infos.split(':')
+						for document_to_compare in position_check_list[i]:
+							splittedDocument_to_compare = document_to_compare.split(':')								
+							if splittedDocument_to_compare[0] == splitedDocument[0]:									
+								if int(splitedDocument[1])+i == int(splittedDocument_to_compare[1]):
+									temp_ok_documents = splitedDocument[0] + ":" + splitedDocument[1] + ":" + str(float(splitedDocument[2]) + float(splittedDocument_to_compare[2]))
+									#if i == len(position_check_list):
+									results[splitedDocument[0]] = float(temp_ok_documents.split(':')[2])
+									#print "results[" + splitedDocument[0] + "] = " + str(results[splitedDocument[0]])
+									#print "i = " + str(i) + " " + splitedDocument[0] + ":" + splitedDocument[1] + " == " + splittedDocument_to_compare[0]  + ":" + splittedDocument_to_compare[1]
+					ok_documents = [temp_ok_documents]						
+					#print "results[splitedDocument[0]] = " + str(results[splitedDocument[0]])
+						#print ok_documents.get(splitedDocument[0],None)
+						#print splitedDocument[0] + " " + splitedDocument[1]
+		#sys.exit()
+	return results
+
+def addResult(key, value):
+	global results
+	if key not in results:
+		results[key] = float(result)
+	else:		
+		results[key] += float(result)	
+
 #########################################################################################
 #																						#
 #									  	   Main			 								#
@@ -40,6 +80,8 @@ import operator
 if __name__ == '__main__':
 	stopwords = indexing.getStopwords()
 	results = dict()
+	composedWordsResults = dict()
+	normalWordsResults = dict()
 	# Pour chaque argument sans le ./query-manager.py
 	stemOrderedDict = indexing.getStemOrderedDict()
 	arguments = dict()
@@ -59,35 +101,7 @@ if __name__ == '__main__':
 	for index, argument in arguments.iteritems():
 		# Composed Words
 		if index == "cw":
-			for word in argument:
-				for chaine in word:
-					position_check_list = []
-					for indexToken, token in enumerate(chaine.split(':')):
-						#print token
-						stemmedWord = indexing.stemmer(token)
-						values = stemOrderedDict.get(stemmedWord, None)
-						if values is not None:
-							position_check_list.append(values)
-					if len(position_check_list) > 0:
-						ok_documents = position_check_list[0]
-						for i in range(1,len(position_check_list)):
-							temp_ok_documents = None
-							for document_infos in ok_documents:							
-								splitedDocument = document_infos.split(':')
-								for document_to_compare in position_check_list[i]:
-									splittedDocument_to_compare = document_to_compare.split(':')								
-									if splittedDocument_to_compare[0] == splitedDocument[0]:									
-										if int(splitedDocument[1])+i == int(splittedDocument_to_compare[1]):
-											temp_ok_documents = splitedDocument[0] + ":" + splitedDocument[1] + ":" + str(float(splitedDocument[2]) + float(splittedDocument_to_compare[2]))
-											#if i == len(position_check_list):
-											results[splitedDocument[0]] = float(temp_ok_documents.split(':')[2])
-											#print "results[" + splitedDocument[0] + "] = " + str(results[splitedDocument[0]])
-											#print "i = " + str(i) + " " + splitedDocument[0] + ":" + splitedDocument[1] + " == " + splittedDocument_to_compare[0]  + ":" + splittedDocument_to_compare[1]
-							ok_documents = [temp_ok_documents]						
-							#print "results[splitedDocument[0]] = " + str(results[splitedDocument[0]])
-								#print ok_documents.get(splitedDocument[0],None)
-								#print splitedDocument[0] + " " + splitedDocument[1]
-				#sys.exit()
+			composedWordsResults = getResultsOfComposedWords(argument)
 		# Composed Words To Remove
 		# Composed Words To Remove
 		# Normal Words To Remove
@@ -96,7 +110,9 @@ if __name__ == '__main__':
 		# OR Words
 		# Normal Words
 		if index == "nw":
+			normalWordsResults = dict()
 			for word in argument:
+				word = word.lower()
 				writted = []	# document déjà présent dans les résultats
 				# On traite le mot seulement s'il n'est pas dans les stopwords
 				if indexing.stemmer(word) not in stopwords:
@@ -107,11 +123,16 @@ if __name__ == '__main__':
 							splitted = document.replace('\n','').split(':')
 							if splitted[0] not in writted:
 								#resultFile.write(splitted[0] + '|' + splitted[2] + '\n')
-								if splitted[0] not in results:
-									results[splitted[0]] = float(splitted[2])
+								if splitted[0] not in normalWordsResults:
+									normalWordsResults[splitted[0]] = float(splitted[2])
 									writted.append(splitted[0])	# Pour ne pas avoir plusieurs fois le résultat
 								else:
-									results[splitted[0]] += float(splitted[2])
+									normalWordsResults[splitted[0]] += float(splitted[2])
+		# Ici on fusionne les résultats
+		for key, result in composedWordsResults.iteritems():
+			addResult(key, result)	
+		for key, result in normalWordsResults.iteritems():
+			addResult(key, result)	
 		# Après la création de tout les résultats, on les écrit
 		resultFile = open('output/results.txt','w')
 		sorted_results = sorted(results.items(), key=operator.itemgetter(1), reverse=True)
