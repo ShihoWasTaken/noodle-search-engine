@@ -7,7 +7,7 @@
 	{
 		if($_GET['allWords'] != "")
 		{
-			$args[] = $_GET['allWords'];
+			$args[] = trim($_GET['allWords']);
 		}
 	}
 	if(isset($_GET['thisWordExactly']))
@@ -25,7 +25,10 @@
 	}
 	if(isset($_GET['oneOfThisWords']))
 	{
-		$args[] = join(' OR ', explode(' ',$_GET['oneOfThisWords']));
+		if($_GET['oneOfThisWords'] != "")
+		{
+			$args[] = join(' OR ', explode(' ',$_GET['oneOfThisWords']));
+		}
 	}
 	if(isset($_GET['noneOfThisWords']))
 	{
