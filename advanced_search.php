@@ -63,7 +63,7 @@
 		<div class="container-fluid form-container">
 			<div class="row">
 				<div class="col-md-12">
-					<form class="form-horizontal" role="form" method="post" action="search.php">
+					<form class="form-horizontal" role="form" method="get" action="advanced_search_process.php">
 						<div class="row">
 							<div class="col-md-2">
 							Trouvez des pages avec…
@@ -77,7 +77,7 @@
 						<div class="row">
 							<label class="control-label col-sm-2" for="allWords">Tous les mots suivants :</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" id="allWords" name="allWords">
+								<input type="text" class="form-control" id="allWords" name="allWords">
 							</div>
 							<div class="col-md-4">
 							Saisissez les mots importants : <code>terrier</code> <code>tricolore</code>
@@ -86,7 +86,7 @@
 						<div class="row">
 							<label class="control-label col-sm-2" for="thisWordExactly">Ce mot ou cette expression exact(e) :</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" id="thisWordExactly" name="thisWordExactly">
+								<input type="text" class="form-control" id="thisWordExactly" name="thisWordExactly">
 							</div>
 							<div class="col-md-4">
 							Ajoutez des guillemets autour des mots exacts : <code>"terrier"</code>
@@ -95,7 +95,7 @@
 						<div class="row">
 							<label class="control-label col-sm-2" for="oneOfThisWords">L'un des mots suivants :</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" id="oneOfThisWords" name="oneOfThisWords">
+								<input type="text" class="form-control" id="oneOfThisWords" name="oneOfThisWords">
 							</div>
 							<div class="col-md-4">
 							Saisissez OR entre tous les mots à inclure : <code>miniature OR standard</code>
@@ -104,7 +104,7 @@
 						<div class="row">
 							<label class="control-label col-sm-2" for="noneOfThisWords">Aucun des mots suivants :</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" id="noneOfThisWords" name="noneOfThisWords">
+								<input type="text" class="form-control" id="noneOfThisWords" name="noneOfThisWords">
 							</div>
 							<div class="col-md-4">
 							Placez un signe - (moins) devant les mots à exclure :  <code>-rongeur, -"Jack Russell"</code>
@@ -115,13 +115,13 @@
 							<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-5">
-										<input type="email" class="form-control" id="min" name="min">
+										<input type="text" class="form-control" id="min" name="min">
 									</div>
 									<div class="col-md-2 text-center">
 									Et
 									</div>
 									<div class="col-md-5">
-										<input type="email" class="form-control" id="max" name="max">
+										<input type="text" class="form-control" id="max" name="max">
 									</div>
 								</div>
 							</div>
