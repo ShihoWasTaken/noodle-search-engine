@@ -164,5 +164,69 @@ if __name__ == '__main__':
 			#print egalSplitted[1]
 			for doublePointSplitted in egalSplitted[1].split(':'):
 					arguments[egalSplitted[0]].append(doublePointSplitted)
-	process(arguments)
+	if arguments.get("ow",None) is None:	# Si on a pas de OR
+		for index, argument in arguments.iteritems():
+			# Composed Words
+			if index == "cw":
+				composedWordsResults = getResultsOfComposedWords(argument)
+			# Composed Words To Remove
+			if index == "cwtr":
+				composedWordsToRemoveResults = getResultsOfComposedWords(argument)
+			# Normal Words To Remove
+			if index == "nwtr":
+				normalWordsToRemoveResults = getResultsOfNormalWords(argument)
+			# Normal Words
+			if index == "nw":
+				normalWordsResults = getResultsOfNormalWords(argument)
+			# Ici on fusionne les résultats
+			for key, result in composedWordsResults.iteritems():
+				addResult(key, result)	
+			for key, result in normalWordsResults.iteritems():
+				addResult(key, result)	
+			for key, result in composedWordsToRemoveResults.iteritems():
+				removeResult(key)	
+			for key, result in normalWordsToRemoveResults.iteritems():
+				removeResult(key)	
+			# Après la création de tout les résultats, on les écrit
+			resultFile = open('output/results.txt','w')
+			sorted_results = sorted(results.items(), key=operator.itemgetter(1), reverse=True)
+			for key, value in sorted_results:
+				resultFile.write(key + '|' + str(value) + '\n')
+			resultFile.close()
+	else:	# Si on a des OR
+		if arguments.get("nw",None) is None:
+			arguments["nw"] = []
+		resultFile = open('output/results.txt','w')
+		argumentsNormalWordsCopy = arguments["nw"]
+		for orWordArg in arguments["ow"]:	# Pour chaque orWord
+			arguments["nw"] = list(argumentsNormalWordsCopy)
+			arguments["nw"].append(orWordArg)
+			for index, argument in arguments.iteritems():
+				# Composed Words
+				if index == "cw":
+					composedWordsResults = getResultsOfComposedWords(argument)
+				# Composed Words To Remove
+				if index == "cwtr":
+					composedWordsToRemoveResults = getResultsOfComposedWords(argument)
+				# Normal Words To Remove
+				if index == "nwtr":
+					normalWordsToRemoveResults = getResultsOfNormalWords(argument)
+				# Normal Words
+				if index == "nw":
+					normalWordsResults = getResultsOfNormalWords(argument)
+				# Ici on fusionne les résultats
+				for key, result in composedWordsResults.iteritems():
+					addResult(key, result)	
+				for key, result in normalWordsResults.iteritems():
+					addResult(key, result)	
+				for key, result in composedWordsToRemoveResults.iteritems():
+					removeResult(key)	
+				for key, result in normalWordsToRemoveResults.iteritems():
+					removeResult(key)		
+		# Après la création de tout les résultats, on les écrit				
+		sorted_results = sorted(results.items(), key=operator.itemgetter(1), reverse=True)
+		for key, value in sorted_results:
+			resultFile.write(key + '|' + str(value) + '\n')	
+		resultFile.close()
+
 #./query-manager.py nw="silent:movie" cw="Silent:movie:star||was:named:president:of:Howard:University" nwtr="jack" cwtr="coca:cola:cherry" ow="toto:tata:tutu"
