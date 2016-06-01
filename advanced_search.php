@@ -111,25 +111,6 @@
 							</div>
 						</div>
 						<div class="row">
-							<label class="control-label col-sm-2" for="min">Nombres compris entre :</label>
-							<div class="col-md-6">
-								<div class="row">
-									<div class="col-md-5">
-										<input type="text" class="form-control" id="min" name="min">
-									</div>
-									<div class="col-md-2 text-center">
-									Et
-									</div>
-									<div class="col-md-5">
-										<input type="text" class="form-control" id="max" name="max">
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-							Placez deux points entre les nombres, et ajoutez une unité de mesure : <code>10..35 kilos, 300..500 USD, 2010..2011</code>
-							</div>
-						</div>
-						<div class="row">
 							<hr>
 						</div>
 						<div class="row">
@@ -144,10 +125,10 @@
 						<div class="row">
 							<label class="control-label col-sm-2" for="whereToSearch">Termes apparaissant :</label>
 							<div class="col-md-6">
-								<select class="form-control" id="whereToSearch" name="whereToSearch">
+								<select class="form-control" id="whereToSearch" name="whereToSearch" disabled>
 									<option>N'importe où dans la page</option>
 									<option>Dans le titre de la page</option>
-									<option>Dans le texte de la page</option>
+									<option selected>Dans le texte de la page</option>
 									<option>Dans l'URL de la page</option>
 								</select>
 							</div>

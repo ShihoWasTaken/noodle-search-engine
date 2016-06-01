@@ -52,3 +52,11 @@ Chaque mot de la requête est parsé afin de repérer s'il s'agit d'un mot norma
 
 Interface Graphique
 L'interface graphique du moteur de recherche a été réalisée en HTML, CSS, Bootstrap et jQuery. L'utilisateur peut effectuer une recherche simple via la barre de recherche, ou bien effectuer une recherche avancée sur la page correspondante afin d'utiliser des opérateurs logiques ou de rechercher des suites de mots. A l'affichage des résultats, ceux-ci sont triés par pertinence (tf-idf décroissant) et sont accessibles en cliquant sur leur titre. En-dessous de chaque document se trouve un extrait de celui-ci.
+
+Les requêtes s'écrivent à la manière de Google:
+- On peut faire une recherche simple avec plusieurs mots, dans ce cas là, les résultats contiendront les documents contenant au moins un mot. Les résultats contenant plusieurs des mots apparaitront en premier grâce au tri par tf-idf.
+- On peut faire une recherche avec un groupe de mot entre guillemets, cela permet de rechercher les documents contenant exactement un groupe de mot à la suite et non pas chaque mot séparement. Cette recherche se base sur les index positionnels.
+- On peut ajouter un moins devant un mot ou un groupe de mot entre guillemet, cela permet d'exclure des résultats les document contenant le mot ou le groupe de mot à la suite. On peut par exemple imaginer une recherche: jaguar -"voiture de luxe" ou jaguar -voiture
+- On peut également utiliser le mot clé OR entre chaque mot simple d'une requête, cela permet de chercher des documents contenant un mot ou l'autre.
+Une requête pourrait être: vidéo 720p OR 1080p.La différence avec une recherche simple sans OR est la pertinence des résultats. Chaque mot rattaché au OR sera traité comme une requête séparé. Ainsi, par exemple si 720p et 1080p sont trouvés dans un même document, celui-ci ne sera pas mieux classé qu'un document ayant seulement 720p.
+Pour finir, ces 4 syntaxes peuvent être combinés dans une même requête afin d'obtenir des résultats le plus précis possible.
