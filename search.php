@@ -201,7 +201,6 @@
 					</form>
 					<p class="navbar-text navbar-right">
 						<a class="btn btn-red" href="advanced_search.php">Recherche avancée</a>
-						<a class="btn btn-red" href="help.php" id="help-link" title="Aide"><i class="fa fa-question-circle" aria-hidden="true" id="help-link-icon"></i></a>
 					</p>
 				</div>
 				<!-- /.navbar-collapse -->

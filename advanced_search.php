@@ -44,9 +44,6 @@
 							<span class="blue-letter">N</span><span class="red-letter">o</span><span class="yellow-letter">o</span><span class="blue-letter">d</span><span class="green-letter">l</span><span class="red-letter">e</span>
 						</div></a>
 				</div>
-				<p class="navbar-text navbar-right">
-					<a class="btn btn-red" href="help.php" id="help-link" title="Aide"><i class="fa fa-question-circle" aria-hidden="true" id="help-link-icon"></i></a>
-				</p>
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
