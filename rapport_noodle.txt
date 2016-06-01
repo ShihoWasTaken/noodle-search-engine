@@ -7,6 +7,8 @@ Ce projet a pour but de créer un moteur de recherche documentaire. Contrairemen
 
 Installation du projet
 Déposer le répertoire sur un serveur. 
+Installer le module nltk grâce à la commande suivante :
+	sudo pip install nltk
 La page d'accueil est accessible via l'url [votre-chemin]/noodle-search-engine/index.php
 La page de recherche avancée est accessible via l'url [votre-chemin]/noodle-search-engine/advanced_search.php
 
@@ -20,19 +22,33 @@ Le projet a été réalisé en Python et en Php et implémente les fonctionnalit
 - Réalisation d'une interface graphique permettant une recherche simple ainsi qu'une recherche avancée et permettant un accès facile aux résultats
 - Tri des résultats en fonction du tf-idf
 
+Le Python est utilisé pour les opérations d'indexation, de de traitement des requêtes et de recherche des résultats.
+Le Php est quant à lui utilisé afin de constituer une interface utilisateur communiquant avec les scripts Python.
+
 Indexation
-La phase d'indexation a été réalisée en Python. Pour chaque fichier présent dans le répertoire data, on parcourt le contenu des balises TEXT contenues dans les balises DOC. On enlève les caractères spéciaux et on stemmise chaque token à l'aide de l'algorithme de PorterStemmer avant de l'ajouter à une structure dictionnaire. 
+Pour chaque fichier présent dans le répertoire data, on parcourt le contenu des balises TEXT contenues dans les balises DOC. On enlève les caractères spéciaux et on stemmise chaque token à l'aide de l'algorithme de PorterStemmer avant de l'ajouter à une structure dictionnaire. 
 La structure du dictionnaire contient, pour chaque stem, les identifiants des documents dans lesquels il est présent, ainsi que les positions auxquelles il se trouve dans chaque document.
+
+Exemple : 
+dictionnaire	[terme1]
+					[AP890101-0001] : 77
+					[AP890101-0021] : 1352
+					[AP890101-0023] : 1449, 1469
+				[terme2]
+					[AP890101-0001] : 20, 25, 34...
+					[AP890101-0002] : 139, 147
+					[AP890101-0003] : 237
+					...
 
 Gestion de la requête utilisateur
 Il existe plusieurs options pour effectuer la requête. L'utilisateur peut :
 - Chercher des mots normaux
 - Chercher des groupes de mots (à mettre entre "")
 - Exclure des mots de la recherche (les mots à exclure doivent être précédés d'un -)
-- Utiliser des opérateurs logiques tels que le OR
+- Utiliser des opérateurs logiques tels que le OR ou le - (pour NOT)
 (Pour une liste et des exemples détaillés des options, voir la page de recherche avancée)
 
-Chaque mot est parsé par un script Php qui repère s'il s'agit d'un mot normal, d'un groupe de mots, ou d'un opérateur logique. Il appelle ensuite un script Python pour la stemmisation. On cherche alors s'il est contenu dans le dictionnaire réalisé lors de la phase d'indexation. Si oui, alors on récupère la liste des documents dans lesquels il apparaît, ainsi que ses positions. A partir de ces données, on peut trier la liste des résultats selon leur tf-idf. 
+Chaque mot de la requête est parsé afin de repérer s'il s'agit d'un mot normal, s'il est contenu dans un groupe de mots ("phrasal queries", les mots doivent alors se suivre), ou s'il est précédé d'un opérateur logique. Les mots sont ensuite stemmisés grâce à l'algorithme de Porter Stemmer. Pour chaque stem, on cherche alors s'il est contenu dans le dictionnaire réalisé lors de la phase d'indexation. Si oui, alors on récupère la liste des documents dans lesquels il apparaît, ainsi que ses positions. A partir de ces données, on peut trier la liste des résultats selon leur tf-idf. 
 
 Interface Graphique
-L'interface graphique du moteur de recherche a été réalisée en HTML, CSS, Bootstrap et jQuery. L'utilisateur peut effectuer une recherche simple via la barre de recherche, ou bien effectuer une recherche avancée sur la page correspondante afin d'utiliser des opérateurs logiques ou de rechercher des suites de mots. Les actions appellent des scripts Php qui eux-mêmes appellent des scripts Python lorsqu'une gestion de fichiers est nécessaire.
+L'interface graphique du moteur de recherche a été réalisée en HTML, CSS, Bootstrap et jQuery. L'utilisateur peut effectuer une recherche simple via la barre de recherche, ou bien effectuer une recherche avancée sur la page correspondante afin d'utiliser des opérateurs logiques ou de rechercher des suites de mots. A l'affichage des résultats, ceux-ci sont triés par pertinence (tf-idf décroissant) et sont accessibles en cliquant sur leur titre. En-dessous de chaque document se trouve un extrait de celui-ci.
