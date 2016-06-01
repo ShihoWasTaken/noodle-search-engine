@@ -96,6 +96,14 @@ def addResult(key, value):
 	else:		
 		results[key] += float(value)	
 
+def addResultOrWord(key, value):
+	global results
+	if key not in results:
+		results[key] = float(value)
+	else:		
+		if results[key] < value:
+			results[key] = float(value)
+
 def removeResult(key):
 	global results
 	return results.pop(key, None)
@@ -216,9 +224,9 @@ if __name__ == '__main__':
 					normalWordsResults = getResultsOfNormalWords(argument)
 				# Ici on fusionne les résultats
 				for key, result in composedWordsResults.iteritems():
-					addResult(key, result)	
+					addResultOrWord(key, result)	
 				for key, result in normalWordsResults.iteritems():
-					addResult(key, result)	
+					addResultOrWord(key, result)	
 				for key, result in composedWordsToRemoveResults.iteritems():
 					removeResult(key)	
 				for key, result in normalWordsToRemoveResults.iteritems():
